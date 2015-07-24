@@ -1,0 +1,19 @@
+FROM debian:jessie
+
+RUN apt-get update
+RUN apt-get upgrade -y
+RUN apt-get install -y -q python2.7 python-pip git
+RUN apt-get clean
+RUN rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
+
+ADD http://www.random.org/strings/?num=10&len=8&digits=on&upperalpha=on&loweralpha=on&unique=on&format=plain&rnd=new /cache-buster
+RUN rm /cache-buster
+
+RUN git clone http://github.com/zylos/gemini /app
+
+VOLUME /app
+WORKDIR /app
+RUN git checkout "COMMIT_ID"
+RUN pip install -r requirements.txt
+
+ENTRYPOINT "uwsgi --ini uwsgi.ini"

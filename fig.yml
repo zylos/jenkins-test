@@ -1,0 +1,6 @@
+gemini:
+  image: arcturus/gemini
+  volumes:
+    - app:/root/app
+  ports:
+    - 4568:80
