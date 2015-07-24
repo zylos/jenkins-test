@@ -2,7 +2,7 @@ FROM debian:jessie
 
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install -y -q python2.7 python-pip git
+RUN apt-get install -y -q python2.7 python-dev python-pip git
 RUN apt-get clean
 RUN rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
@@ -15,5 +15,6 @@ VOLUME /app
 WORKDIR /app
 RUN git checkout "COMMIT_ID"
 RUN pip install -r requirements.txt
+RUN python manage.py migrate
 
-ENTRYPOINT "uwsgi --ini uwsgi.ini"
+CMD ["/usr/local/bin/uwsgi", "--ini", "uwsgi.ini"]

@@ -3,4 +3,4 @@ gemini:
   volumes:
     - app:/root/app
   ports:
-    - 4568:80
+    - 1460:1460
