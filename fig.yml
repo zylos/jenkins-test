@@ -2,5 +2,3 @@ gemini:
   image: arcturus/gemini
   volumes:
     - app:/root/app
-  ports:
-    - 1460:1460
